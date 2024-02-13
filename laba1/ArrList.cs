@@ -95,11 +95,11 @@
             count = 0;
         }
 
-        public void print()
+        public void Print()
         {
             for (int i = 0; i < count; i++)
             {
-                Console.WriteLine(buffer[i]);
+                Console.Write(buffer[i] + " ");
             }
         }
     }

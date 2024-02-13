@@ -1,19 +1,19 @@
 ﻿namespace laba1
 {
-    public class Node
-    {
-        public int Data;
-        public Node Next;
-
-        public Node(int data)
-        {
-            Data = data;
-            Next = null;
-        }
-    }
-
     public class ChainList
     {
+        public class Node
+        {
+            public int Data { get; set; }
+            public Node Next { get; set; }
+
+            public Node(int data)
+            {
+                Data = data;
+                Next = null;
+            }
+        }
+
         Node head;
         int count;
 
@@ -21,112 +21,6 @@
         {
             head = null;
             count = 0;
-        }
-
-        public void Add(int item)
-        {
-            if (head == null)
-            {
-                head = new Node(item);
-            }
-            else
-            {
-                Node current = head;
-                while (current.Next != null)
-                {
-                    current = current.Next;
-                }
-                current.Next = new Node(item);
-            }
-            count++;
-        }
-
-        public void Insert(int index, int item)
-        {
-            if (index < 0 || index > count)
-            {
-                throw new IndexOutOfRangeException();
-            }
-
-            if (index == 0)
-            {
-                Node newNode = new Node(item);
-                newNode.Next = head;
-                head = newNode;
-            }
-            else
-            {
-                Node current = head;
-                for (int i = 0; i < index - 1; i++)
-                {
-                    current = current.Next;
-                }
-                Node newNode = new Node(item);
-                newNode.Next = current.Next;
-                current.Next = newNode;
-            }
-            count++;
-        }
-
-        public void Delete(int index)
-        {
-            if (index < 0 || index >= count)
-            {
-                throw new IndexOutOfRangeException();
-            }
-
-            if (index == 0)
-            {
-                head = head.Next;
-            }
-            else
-            {
-                Node current = head;
-                for (int i = 0; i < index - 1; ++i)
-                {
-                    current = current.Next;
-                }
-                current.Next = current.Next.Next;
-            }
-            count--;
-        }
-
-        public void Clear()
-        {
-            head = null;
-            count = 0;
-        }
-
-        public int this[int index]
-        {
-            get
-            {
-                if (index < 0 || index >= count)
-                {
-                    throw new IndexOutOfRangeException();
-                }
-
-                Node current = head;
-                for (int i = 0; i < index; i++)
-                {
-                    current = current.Next;
-                }
-                return current.Data;
-            }
-            set
-            {
-                if (index < 0 || index >= count)
-                {
-                    throw new IndexOutOfRangeException();
-                }
-
-                Node current = head;
-                for (int i = 0; i < index; i++)
-                {
-                    current = current.Next;
-                }
-                current.Data = value;
-            }
         }
 
         public Node NodeFind(int pos)
@@ -143,19 +37,114 @@
             else return null;
         }
 
+        public void Add(int item)
+        {
+            if (head == null)
+            {
+                head = new Node(item);
+            }
+            else
+            {
+                Node lastNode = NodeFind(count - 1);
+                lastNode.Next = new Node(item);
+            }
+            count++;
+        }
+
+        public int this[int index]
+        {
+            get
+            {
+                if (index < 0 || index > count)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+
+                Node current = head;
+                for (int i = 0; i < index; i++)
+                {
+                    current = current.Next;
+                }
+                return current.Data;
+            }
+            set
+            {
+                if (index < 0 || index > count)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+
+                Node current = head;
+                for(int i = 0;i < index; i++)
+                {
+                    current = current.Next;
+                }
+                current.Data = value;
+            }
+        }
+
         public int Count
         {
             get { return count; }
         }
 
-        public void print()
+        public void Insert(int pos, int item)
         {
-            ChainList current = head;
+            if (pos < 0 || pos > count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            if (pos == 0)
+            {
+                Node newNode = new Node(item);
+                newNode.Next = head;
+                head = newNode;
+            }
+            else
+            {
+                Node prevNode = NodeFind(pos - 1);
+                Node newNode = new Node(item);
+                newNode.Next = prevNode.Next;
+                prevNode.Next = newNode;
+            }
+            count++;
+        }
+
+        public void Delete(int pos)
+        {
+            if (pos < 0 || pos > count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            if (pos == 0)
+            {
+                head = head.Next;
+            }
+            else
+            {
+                Node prevNode = NodeFind(pos - 1);
+                prevNode.Next = prevNode.Next.Next;
+            }
+            pos--;
+        }
+
+        public void Clear()
+        {
+            head = null;
+            count = 0;
+        }
+
+        public void Print()
+        {
+            Node current = head;
             while (current != null)
             {
-                Console.WriteLine(current.);
-
+                Console.Write(current.Data + " ");
+                current = current.Next;
             }
         }
+
     }
 }

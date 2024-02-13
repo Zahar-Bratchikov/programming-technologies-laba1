@@ -35,6 +35,13 @@ namespace laba1
                         break;
                 }
             }
+
+            array.Print();
+            Console.WriteLine();
+            Console.WriteLine("-------------------");
+            Console.WriteLine();
+            chain.Print();
+
         }
     }
 }
