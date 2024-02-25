@@ -1,4 +1,4 @@
-﻿namespace laba1
+namespace laba1
 {
     public class ChainList
     {
@@ -14,8 +14,8 @@
             }
         }
 
-        Node head;
-        int count;
+        private Node head;
+        private int count;
 
         public ChainList()
         {
@@ -55,30 +55,24 @@
         {
             get
             {
-                if (index < 0 || index > count)
+                if (index < 0 || index >= count)
                 {
-                    throw new IndexOutOfRangeException();
+                    //throw new IndexOutOfRangeException();
+                    return 0;
                 }
 
-                Node current = head;
-                for (int i = 0; i < index; i++)
-                {
-                    current = current.Next;
-                }
+                Node current = NodeFind(index);
                 return current.Data;
             }
             set
             {
-                if (index < 0 || index > count)
+                if (index < 0 || index >= count)
                 {
-                    throw new IndexOutOfRangeException();
+                    //throw new IndexOutOfRangeException();
+                    return;
                 }
 
-                Node current = head;
-                for(int i = 0;i < index; i++)
-                {
-                    current = current.Next;
-                }
+                Node current = NodeFind(index);
                 current.Data = value;
             }
         }
@@ -92,7 +86,8 @@
         {
             if (pos < 0 || pos > count)
             {
-                throw new IndexOutOfRangeException();
+                //throw new IndexOutOfRangeException();
+                return;
             }
 
             if (pos == 0)
@@ -113,9 +108,10 @@
 
         public void Delete(int pos)
         {
-            if (pos < 0 || pos > count)
+            if (pos < 0 || pos >= count)
             {
-                throw new IndexOutOfRangeException();
+                //throw new IndexOutOfRangeException();
+                return;
             }
 
             if (pos == 0)
@@ -127,7 +123,7 @@
                 Node prevNode = NodeFind(pos - 1);
                 prevNode.Next = prevNode.Next.Next;
             }
-            pos--;
+            count--;
         }
 
         public void Clear()
@@ -144,7 +140,7 @@
                 Console.Write(current.Data + " ");
                 current = current.Next;
             }
+            Console.WriteLine();
         }
-
     }
 }

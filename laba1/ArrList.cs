@@ -1,4 +1,5 @@
-﻿namespace laba1
+
+namespace laba1
 {
     public class ArrList
     {
@@ -16,8 +17,11 @@
         void Expand()
         {
             capacity *= 2;
-            Array.Resize(ref buffer, capacity);
+            int[] newBuffer = new int[capacity];
+            Array.Copy(buffer, newBuffer, count);
+            buffer = newBuffer;
         }
+
         public void Add(int item)
         {
             if (count == capacity)
@@ -35,7 +39,8 @@
             {
                 if (index < 0 || index >= count)
                 {
-                    throw new IndexOutOfRangeException();
+                    //throw new IndexOutOfRangeException();
+                    return 0;
                 }
                 return buffer[index];
             }
@@ -43,7 +48,8 @@
             {
                 if (index < 0 || index >= count)
                 {
-                    throw new IndexOutOfRangeException();
+                    //throw new IndexOutOfRangeException();
+                    return;
                 }
                 buffer[index] = value;
             }
@@ -58,7 +64,8 @@
         {
             if (position < 0 || position > count)
             {
-                throw new IndexOutOfRangeException();
+                //throw new IndexOutOfRangeException();
+                return;
             }
 
             if (count == capacity)
@@ -79,7 +86,9 @@
         {
             if (position < 0 || position >= count)
             {
-                throw new IndexOutOfRangeException();
+                //throw new IndexOutOfRangeException();
+                return;
+
             }
 
             for (int i = position; i < count - 1; i++)
@@ -92,6 +101,7 @@
 
         public void Clear()
         {
+            buffer = new int[capacity]; // Восстановление буфера с начальной емкостью
             count = 0;
         }
 
